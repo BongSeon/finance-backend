@@ -25,20 +25,22 @@ app.listen(port, () => {
 });
 
 // 클라이언트에서 HTTP 요청 메소드 중 GET을 이용해서 'host:3000/api/consults'로 요청을 보내면 실행되는 라우트입니다.
-// 컨설트 정보 조회 api
+
+// get 컨설트 정보 조회 api
 app.get("/api/consults", async (req, res) => {
-  // localhost:3000/customers 접속 시 실행
+  // localhost:3000/api/customers 접속 시 실행
   const consults = await mysql.query("consultList"); //sql.js 파일에 작성된 customerList 쿼리를 실행
   console.log(consults);
   res.send(consults); // 결과를 클라이언트로 보냄
 });
 
-// 새로운 컨설트 정보 추가 api
+// post 새로운 컨설트 정보 추가 api
 app.post("/api/consult/insert", async (req, res) => {
   console.log(req.body);
   const result = await mysql.query("consultInsert", req.body.param);
   res.send(result);
 });
+
 // put 컨설트 정보 수정 api
 app.put("/api/consult/update", async (req, res) => {
   const result = await mysql.query("consultUpdate", req.body.param);
